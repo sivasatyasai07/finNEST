@@ -275,11 +275,11 @@ export const REGIONAL_SCENARIOS: RegionalScenario[] = [
     id: 'scen-mumbai',
     location: 'Mumbai',
     state: 'Maharashtra',
-    characterName: 'Priya',
+    characterName: 'Ananya',
     age: 16,
     role: '11th Grade Science Student',
-    story: 'Priya lives in Thane and travels to Dadar for JEE coaching. She needs ₹3,000 for specialized reference books by next month, but her family’s budget is tight.',
-    moneyDecision: 'What is the most sustainable way for Priya to fund her study materials?',
+    story: 'Ananya lives in Thane and travels to Dadar for JEE coaching. She needs ₹3,000 for specialized reference books by next month, but her family’s budget is tight.',
+    moneyDecision: 'What is the most sustainable way for Ananya to fund her study materials?',
     regionalPhrase: 'Kifayati (Economical / Value-focused)',
     phraseMeaning: 'The Mumbai spirit of resourcefulness and making every rupee count.',
     choices: [
@@ -571,7 +571,7 @@ export const SCAM_ITEMS: ScamItem[] = [
     channel: 'Instagram DM',
     sender: 'StudentDeals_India_Official',
     timestamp: 'Today, 11:30 AM',
-    messageContent: 'Hey Aarav! You have been selected as our Campus Brand Ambassador. We will courier you free headphones + ₹2,000 stipend. Just send us ₹199 courier registration fee via GPay to verify your address.',
+    messageContent: 'Hey Friend! You have been selected as our Campus Brand Ambassador. We will courier you free headphones + ₹2,000 stipend. Just send us ₹199 courier registration fee via GPay to verify your address.',
     type: 'scam',
     explanation: 'Legitimate brand partnerships never ask students to pay upfront "registration" or "courier fees" via personal UPI handles. Once you send ₹199, they block you.',
     redFlags: [

@@ -213,7 +213,6 @@ export const Header: React.FC = () => {
                 >
                   <div style={{ padding: '0.65rem 1rem', borderBottom: '1px solid var(--border)' }}>
                     <p style={{ fontSize: '0.82rem', fontWeight: 600 }}>{userState.name}</p>
-                    <p style={{ fontSize: '0.72rem', color: 'var(--text-muted)' }}>{userState.email}</p>
                     <p style={{ fontSize: '0.72rem', color: 'var(--accent-earth)', marginTop: '0.2rem' }}>
                       {userState.xp} XP · {userState.streakDays}d Streak
                     </p>

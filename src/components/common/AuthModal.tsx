@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useApp } from '../../context/AppContext';
-import { X, Lock, Mail, User, MapPin, IndianRupee, Target, ShieldCheck, ArrowRight, Eye, EyeOff, Loader2 } from 'lucide-react';
+import { X, Lock, Mail, User, MapPin, IndianRupee, Target, ShieldCheck, ArrowRight, Loader2 } from 'lucide-react';
 
 export const AuthModal: React.FC = () => {
   const { 
@@ -9,8 +9,7 @@ export const AuthModal: React.FC = () => {
     authModalMode, 
     openAuthModal, 
     signIn, 
-    signUp,
-    accounts
+    signUp
   } = useApp();
 
   // Form states
@@ -21,7 +20,6 @@ export const AuthModal: React.FC = () => {
   const [city, setCity] = useState('Bengaluru');
   const [monthlyPocketMoney, setMonthlyPocketMoney] = useState('2000');
   const [primaryGoal, setPrimaryGoal] = useState('Build smart savings & avoid digital UPI scams');
-  const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
@@ -81,30 +79,6 @@ export const AuthModal: React.FC = () => {
 
       if (!res.success) {
         setErrorMessage(res.message);
-      }
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  // Quick Demo Account Helper
-  const handleQuickDemo = async (demoName: string, demoEmail: string, cityVal: string) => {
-    const existing = accounts.find(a => a.email.toLowerCase() === demoEmail.toLowerCase());
-    setIsLoading(true);
-    try {
-      if (existing) {
-        await signIn(existing.email, 'DemoPassword123!');
-      } else {
-        await signUp({
-          name: demoName,
-          email: demoEmail,
-          password: 'DemoPassword123!',
-          avatarInitials: demoName.slice(0, 2).toUpperCase(),
-          gradeOrAge: '11th Grade · 16 yrs',
-          city: cityVal,
-          monthlyPocketMoney: 2000,
-          primaryGoal: 'Learn everyday money discipline & investing basics'
-        });
       }
     } finally {
       setIsLoading(false);
@@ -265,7 +239,7 @@ export const AuthModal: React.FC = () => {
           )}
 
           {authModalMode === 'signin' ? (
-            <form onSubmit={handleSignIn}>
+            <form onSubmit={handleSignIn} autoComplete="off">
               <div style={{ marginBottom: '1.1rem' }}>
                 <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 600, marginBottom: '0.35rem', color: 'var(--text-secondary)' }}>
                   Email Address
@@ -276,7 +250,8 @@ export const AuthModal: React.FC = () => {
                     type="email"
                     value={email}
                     onChange={e => setEmail(e.target.value)}
-                    placeholder="student@example.com"
+                    placeholder="Enter email address"
+                    autoComplete="off"
                     style={{
                       width: '100%',
                       padding: '0.75rem 0.75rem 0.75rem 2.4rem',
@@ -290,20 +265,21 @@ export const AuthModal: React.FC = () => {
                 </div>
               </div>
 
-              <div style={{ marginBottom: '1.25rem' }}>
+              <div style={{ marginBottom: '1.35rem' }}>
                 <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 600, marginBottom: '0.35rem', color: 'var(--text-secondary)' }}>
                   Password
                 </label>
                 <div style={{ position: 'relative' }}>
                   <Lock size={16} style={{ position: 'absolute', left: '12px', top: '13px', color: 'var(--text-muted)' }} />
                   <input
-                    type={showPassword ? 'text' : 'password'}
+                    type="password"
                     value={password}
                     onChange={e => setPassword(e.target.value)}
                     placeholder="Enter password"
+                    autoComplete="off"
                     style={{
                       width: '100%',
-                      padding: '0.75rem 2.5rem 0.75rem 2.4rem',
+                      padding: '0.75rem 0.75rem 0.75rem 2.4rem',
                       border: '1px solid var(--border)',
                       backgroundColor: 'var(--white)',
                       fontSize: '0.9rem',
@@ -311,92 +287,38 @@ export const AuthModal: React.FC = () => {
                     }}
                     required
                   />
-                  <button
-                    type="button"
-                    onClick={() => setShowPassword(!showPassword)}
-                    style={{
-                      position: 'absolute',
-                      right: '12px',
-                      top: '12px',
-                      background: 'none',
-                      border: 'none',
-                      color: 'var(--text-muted)',
-                      cursor: 'pointer'
-                    }}
-                  >
-                    {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
-                  </button>
                 </div>
               </div>
 
-              <button
-                type="submit"
-                disabled={isLoading}
-                className="btn-solid"
-                style={{
-                  width: '100%',
-                  padding: '0.85rem',
-                  fontSize: '0.92rem',
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  gap: '0.5rem',
-                  opacity: isLoading ? 0.7 : 1,
-                  cursor: isLoading ? 'not-allowed' : 'pointer'
-                }}
-              >
-                {isLoading ? (
-                  <>
-                    <Loader2 size={16} className="spin" />
-                    <span>Connecting to Supabase...</span>
-                  </>
-                ) : (
-                  <>
-                    <span>Sign In to Money Dashboard</span>
-                    <ArrowRight size={16} />
-                  </>
-                )}
-              </button>
-
-              {/* Quick 1-Click Fast Student Demo */}
-              <div style={{ marginTop: '1.5rem', paddingTop: '1.25rem', borderTop: '1px solid var(--border)' }}>
-                <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginBottom: '0.65rem', textAlign: 'center' }}>
-                  Or test immediately with a 1-click verified profile:
-                </p>
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.65rem' }}>
-                  <button
-                    type="button"
-                    onClick={() => handleQuickDemo('Aarav Sharma', 'aarav@finnest.in', 'Bengaluru')}
-                    className="btn-outline"
-                    style={{
-                      padding: '0.55rem 0.65rem',
-                      fontSize: '0.8rem',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      gap: '0.4rem'
-                    }}
-                  >
-                    <span style={{ fontWeight: 700, width: '20px', height: '20px', borderRadius: '50%', backgroundColor: 'var(--surface-muted)', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.65rem' }}>AS</span>
-                    <span>Aarav (Class 11)</span>
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => handleQuickDemo('Priya Nair', 'priya@finnest.in', 'Kochi')}
-                    className="btn-outline"
-                    style={{
-                      padding: '0.55rem 0.65rem',
-                      fontSize: '0.8rem',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      gap: '0.4rem'
-                    }}
-                  >
-                    <span style={{ fontWeight: 700, width: '20px', height: '20px', borderRadius: '50%', backgroundColor: 'var(--surface-muted)', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.65rem' }}>PN</span>
-                    <span>Priya (Class 12)</span>
-                  </button>
-                </div>
+              <div style={{ paddingBottom: '1.25rem' }}>
+                <button
+                  type="submit"
+                  disabled={isLoading}
+                  className="btn-solid"
+                  style={{
+                    width: '100%',
+                    padding: '0.85rem',
+                    fontSize: '0.92rem',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    gap: '0.5rem',
+                    opacity: isLoading ? 0.7 : 1,
+                    cursor: isLoading ? 'not-allowed' : 'pointer'
+                  }}
+                >
+                  {isLoading ? (
+                    <>
+                      <Loader2 size={16} className="spin" />
+                      <span>Connecting to Supabase...</span>
+                    </>
+                  ) : (
+                    <>
+                      <span>Sign In to Money Dashboard</span>
+                      <ArrowRight size={16} />
+                    </>
+                  )}
+                </button>
               </div>
             </form>
           ) : (
@@ -459,14 +381,15 @@ export const AuthModal: React.FC = () => {
                 <div style={{ position: 'relative' }}>
                   <Lock size={16} style={{ position: 'absolute', left: '12px', top: '13px', color: 'var(--text-muted)' }} />
                   <input
-                    type={showPassword ? 'text' : 'password'}
+                    type="password"
                     value={password}
                     onChange={e => setPassword(e.target.value)}
                     placeholder="At least 6 characters"
                     minLength={6}
+                    autoComplete="new-password"
                     style={{
                       width: '100%',
-                      padding: '0.75rem 2.5rem 0.75rem 2.4rem',
+                      padding: '0.75rem 0.75rem 0.75rem 2.4rem',
                       border: '1px solid var(--border)',
                       backgroundColor: 'var(--white)',
                       fontSize: '0.9rem',
@@ -474,21 +397,6 @@ export const AuthModal: React.FC = () => {
                     }}
                     required
                   />
-                  <button
-                    type="button"
-                    onClick={() => setShowPassword(!showPassword)}
-                    style={{
-                      position: 'absolute',
-                      right: '12px',
-                      top: '12px',
-                      background: 'none',
-                      border: 'none',
-                      color: 'var(--text-muted)',
-                      cursor: 'pointer'
-                    }}
-                  >
-                    {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
-                  </button>
                 </div>
               </div>
 

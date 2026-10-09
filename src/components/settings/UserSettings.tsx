@@ -85,7 +85,7 @@ export const UserSettings: React.FC = () => {
                 </span>
               </div>
               <p style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', marginTop: '0.2rem' }}>
-                {userState.email} · {userState.xp} XP · {userState.streakDays}d Streak
+                {userState.xp} XP · {userState.streakDays}d Streak
               </p>
             </div>
           </div>
@@ -172,7 +172,7 @@ export const UserSettings: React.FC = () => {
                 type="text"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                placeholder="e.g. Aarav"
+                placeholder="Enter student name"
                 style={{
                   width: '100%',
                   padding: '0.85rem 1rem',
