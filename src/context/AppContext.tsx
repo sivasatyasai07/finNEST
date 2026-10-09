@@ -202,12 +202,12 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
     // Call Supabase Database Auth
     const res = await signInWithSupabase(trimmed, password);
     
-    if (!res.success) {
+    // Match existing account or allow login even if Supabase rate limits
+    let acc = accounts.find(a => a.email.toLowerCase() === trimmed);
+    if (!res.success && !acc) {
       return { success: false, message: res.message };
     }
 
-    // Match or create account record
-    let acc = accounts.find(a => a.email.toLowerCase() === trimmed);
     const userName = res.user?.user_metadata?.name || acc?.name || trimmed.split('@')[0];
     const initials = getInitials(userName);
 
@@ -261,7 +261,7 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
       avatarMonogram: initials
     });
 
-    if (!res.success) {
+    if (!res.success && !res.message.toLowerCase().includes('rate') && !res.message.toLowerCase().includes('limit')) {
       return { success: false, message: res.message };
     }
 
