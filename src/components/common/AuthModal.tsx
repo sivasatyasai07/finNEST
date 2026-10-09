@@ -168,7 +168,7 @@ export const AuthModal: React.FC = () => {
             letterSpacing: '-0.02em',
             marginBottom: '0.15rem'
           }}>
-            FinNest
+            finNEST
           </h2>
 
           <span style={{ 

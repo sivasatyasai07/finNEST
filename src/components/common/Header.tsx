@@ -50,19 +50,16 @@ export const Header: React.FC = () => {
             userSelect: 'none'
           }}
         >
-          {/* Logo Image */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
-            <img 
-              src="/logo.png" 
-              alt="finNEST Logo" 
-              style={{
-                height: '38px',
-                width: 'auto',
-                objectFit: 'contain',
-                display: 'block'
-              }}
-            />
-          </div>
+          <span style={{ 
+            fontFamily: 'var(--font-serif)', 
+            fontSize: '1.65rem', 
+            fontWeight: 700, 
+            letterSpacing: '-0.02em',
+            color: 'var(--black)',
+            lineHeight: 1
+          }}>
+            finNEST
+          </span>
 
           <span 
             className="brand-pill"
