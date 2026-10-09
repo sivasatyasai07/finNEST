@@ -58,7 +58,7 @@ export const Header: React.FC = () => {
             color: 'var(--black)',
             lineHeight: 1
           }}>
-            finNEST
+            FinNEST
           </span>
 
           <span 

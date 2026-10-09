@@ -69,7 +69,8 @@ export const QuizExperience: React.FC = () => {
     setIsFinished(false);
   };
 
-  const progressPercent = Math.round(((currentIndex + 1) / QUIZ_QUESTIONS.length) * 100);
+  // Progress starts strictly at 0% and increments as questions are answered
+  const progressPercent = Math.round((answersRecord.length / QUIZ_QUESTIONS.length) * 100);
 
   return (
     <div className="container-editorial" style={{ paddingTop: '2.5rem', paddingBottom: '4rem', maxWidth: '820px' }}>

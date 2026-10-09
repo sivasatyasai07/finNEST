@@ -29,7 +29,7 @@ export const Footer: React.FC = () => {
                 color: 'var(--text-primary)',
                 letterSpacing: '-0.02em'
               }}>
-                finNEST
+                FinNEST
               </span>
             </div>
             <p style={{ fontSize: '0.88rem', color: 'var(--text-secondary)', lineHeight: '1.65', marginBottom: '1.25rem' }}>
